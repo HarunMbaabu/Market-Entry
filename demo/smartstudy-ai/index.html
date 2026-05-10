@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartStudy AI | Study Smarter with AI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #172033;
+      background: #f7f9fc;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    .nav {
+      background: #ffffff;
+      border-bottom: 1px solid #e5eaf3;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: #3157ff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-size: 0.95rem;
+      color: #526174;
+    }
+
+    .hero {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #eef3ff 0%, #ffffff 55%, #edfdf6 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #e7edff;
+      color: #3157ff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+      color: #101827;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #526174;
+      margin-bottom: 28px;
+      max-width: 640px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #3157ff;
+      color: white;
+      box-shadow: 0 12px 30px rgba(49, 87, 255, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: #2447df;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: #3157ff;
+      border: 1px solid #d6defc;
+    }
+
+    .hero-card {
+      background: #ffffff;
+      padding: 26px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(31, 45, 80, 0.12);
+      border: 1px solid #e9eef8;
+    }
+
+    .summary-box {
+      background: #f3f6ff;
+      border-left: 5px solid #3157ff;
+      padding: 16px;
+      border-radius: 14px;
+      margin: 16px 0;
+      color: #3e4c63;
+    }
+
+    .mini-card {
+      padding: 14px;
+      margin-top: 12px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid #edf1f7;
+    }
+
+    section {
+      padding: 68px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 36px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin-bottom: 12px;
+      color: #101827;
+    }
+
+    .section-heading p {
+      color: #637083;
+      font-size: 1.05rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e7edf5;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 12px 35px rgba(31, 45, 80, 0.06);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #101827;
+    }
+
+    .card p {
+      color: #637083;
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: #eef3ff;
+      color: #3157ff;
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .highlight-box {
+      background: #101827;
+      color: #ffffff;
+      padding: 32px;
+      border-radius: 24px;
+    }
+
+    .highlight-box p {
+      color: #c9d4e5;
+      margin-top: 12px;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 16px;
+    }
+
+    .step {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid #e7edf5;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      min-width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #3157ff;
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    .benefits-list {
+      display: grid;
+      gap: 14px;
+      list-style: none;
+    }
+
+    .benefits-list li {
+      background: #ffffff;
+      border: 1px solid #e7edf5;
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: #526174;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, #3157ff, #42c98b);
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      color: #eef5ff;
+    }
+
+    .signup-form {
+      max-width: 620px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 18px;
+      border-radius: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 12px;
+    }
+
+    .signup-form input {
+      padding: 14px;
+      border: 1px solid #d8e0ec;
+      border-radius: 12px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .signup-form button {
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    footer {
+      background: #101827;
+      color: #c9d4e5;
+      padding: 28px 0;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 850px) {
+      .hero-grid,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 56px 0;
+      }
+
+      .signup-form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-content">
+      <a href="#" class="logo">SmartStudy AI</a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#signup">Join Waitlist</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">AI-powered study assistant</span>
+          <h1>Study smarter, not harder, with AI.</h1>
+          <p>
+            SmartStudy AI helps students turn long notes into clear summaries,
+            practice quizzes, and personalized revision plans before exams.
+          </p>
+          <div class="button-row">
+            <a class="btn btn-primary" href="#signup">Join the Free Waitlist</a>
+            <a class="btn btn-secondary" href="#how-it-works">See How It Works</a>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="SmartStudy AI demo preview">
+          <h2>Demo Preview</h2>
+          <div class="summary-box">
+            <strong>Your notes:</strong> Photosynthesis is the process by which plants use sunlight...
+          </div>
+          <div class="mini-card">
+            ✅ Summary: Plants use sunlight, water, and carbon dioxide to make food.
+          </div>
+          <div class="mini-card">
+            🧠 Quiz: What gas do plants absorb during photosynthesis?
+          </div>
+          <div class="mini-card">
+            📅 Plan: Revise this topic again on Wednesday and Saturday.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem">
+      <div class="container split">
+        <div class="section-heading" style="text-align: left; margin: 0;">
+          <h2>Revision can feel confusing and overwhelming.</h2>
+          <p>
+            Many students have pages of notes, but they do not know what to focus on first.
+            SmartStudy AI helps turn messy study material into simple learning actions.
+          </p>
+        </div>
+        <div class="highlight-box">
+          <h3>Common student problems</h3>
+          <p>Too many notes, limited time, no quiz questions, and no clear revision plan.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="solution">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Meet your AI study partner.</h2>
+          <p>
+            SmartStudy AI helps students learn actively by converting study notes into
+            summaries, quizzes, flashcards, and focused revision plans.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Features designed for better revision</h2>
+          <p>Simple AI tools that help students understand, practice, and plan.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="icon">📝</div>
+            <h3>AI Note Summaries</h3>
+            <p>Paste long notes and get short, clear summaries that are easier to revise.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🧠</div>
+            <h3>Quiz Generator</h3>
+            <p>Create practice questions from your own notes to test understanding.</p>
+          </article>
+          <article class="card">
+            <div class="icon">📅</div>
+            <h3>Revision Planner</h3>
+            <p>Get a simple study schedule based on your topics and exam date.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="container split">
+        <div>
+          <div class="section-heading" style="text-align: left; margin: 0 0 24px;">
+            <h2>How it works</h2>
+            <p>Students can move from notes to action in three simple steps.</p>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div><strong>Paste your notes</strong><br />Add your class notes, textbook text, or study points.</div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div><strong>Choose what you need</strong><br />Select summary, quiz, flashcards, or revision plan.</div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div><strong>Revise with confidence</strong><br />Use the AI output to study faster and practice better.</div>
+            </div>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <h3>Built for students</h3>
+          <p>No complicated dashboard. No confusing setup. Just paste your notes and start revising.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="benefits">
+      <div class="container split">
+        <div class="section-heading" style="text-align: left; margin: 0;">
+          <h2>Why students will love it</h2>
+          <p>SmartStudy AI is designed to help students save time and study more actively.</p>
+        </div>
+        <ul class="benefits-list">
+          <li>✅ Save time by turning long notes into short summaries.</li>
+          <li>✅ Practice better with quizzes generated from your own material.</li>
+          <li>✅ Reduce exam stress with a clear revision plan.</li>
+          <li>✅ Understand weak topics before exam day.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="signup" class="cta">
+      <div class="container">
+        <h2>Be among the first students to try SmartStudy AI.</h2>
+        <p>
+          Join the free waitlist and get early access when the first demo is ready.
+          Perfect for students who want to revise faster and learn smarter.
+        </p>
+        <form class="signup-form">
+          <input type="text" placeholder="Your name" aria-label="Your name" required />
+          <input type="email" placeholder="Your email" aria-label="Your email" required />
+          <button class="btn btn-primary" type="submit">Join Now</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 SmartStudy AI. Built as a LuxDevHQ student AI startup demo.</p>
+    </div>
+  </footer>
+</body>
+</html>
